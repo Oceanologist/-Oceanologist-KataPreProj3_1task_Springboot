@@ -2,6 +2,7 @@ package com.kata_academy.pre_proj.springbot.controller.dao;
 
 
 import com.kata_academy.pre_proj.springbot.controller.model.User;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 
 
@@ -24,9 +25,13 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void update(User user) {
-        manager.merge(user);
+    public User update(User user) {
+        User user1 = new User();
+        user1.setId(user.getId());
+        user1 = manager.merge(user);
+        return user1;
     }
+
 
     @Override
     public List<User> viewAllUsers() {

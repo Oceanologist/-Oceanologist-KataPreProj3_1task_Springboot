@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,8 +35,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void update(User user) {
-        userDAO.update(user);
+    public User update(User user) {
+        return userDAO.update(user);
 
     }
 
