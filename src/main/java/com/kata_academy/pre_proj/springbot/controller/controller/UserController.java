@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @PostMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.update(user, id);
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.update(user);
         return "redirect:/users";
     }
 

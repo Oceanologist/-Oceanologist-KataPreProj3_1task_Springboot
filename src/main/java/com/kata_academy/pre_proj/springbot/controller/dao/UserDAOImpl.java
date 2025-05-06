@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+
 import java.util.List;
 
 @Repository
@@ -23,18 +24,14 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void update(User user, int id) {
-        User newUser = manager.find(User.class, id);
-        newUser.setName(user.getName());
-        newUser.setSurname(user.getSurname());
-        newUser.setAge(user.getAge());
+    public void update(User user) {
+        manager.merge(user);
     }
 
     @Override
     public List<User> viewAllUsers() {
-        String jpql = "SELECT u FROM User u";
-        TypedQuery<User> query = manager.createQuery(jpql, User.class);
-        return query.getResultList();
+        return manager.createQuery("FROM User", User.class).
+                getResultList();
     }
 
     @Override
@@ -45,6 +42,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(int id) {
-        manager.remove(findUserById(id));
+
+        manager.createQuery("delete  from User u where u.id =:id ").setParameter("id", id).
+                executeUpdate();
     }
 }
