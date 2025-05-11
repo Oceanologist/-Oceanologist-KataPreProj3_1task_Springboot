@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @Autowired  // Добавлена аннотация
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -36,23 +36,26 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}/edit")
-    public String find(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        return "edit";
+    @GetMapping("/edit")
+    public String showEditForm(@RequestParam("id") int id, Model model) {
+        User user = userService.findById(id);
+        if (user == null) {
+            System.err.println("User not found with id: " + id);
+        }
+        model.addAttribute("user", user);
+        return "edit-user";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
-        userService.update(user);
+        userService.update(user); // Обновляем целиком
         return "redirect:/users";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteUser(@PathVariable("id") int id) {
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("id") int id) {
         userService.delete(id);
         return "redirect:/users";
     }
 
 }
-

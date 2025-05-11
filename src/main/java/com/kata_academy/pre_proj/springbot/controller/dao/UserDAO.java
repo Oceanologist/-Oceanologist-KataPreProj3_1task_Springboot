@@ -1,7 +1,6 @@
 package com.kata_academy.pre_proj.springbot.controller.dao;
 
 
-
 import com.kata_academy.pre_proj.springbot.controller.model.User;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public interface UserDAO {
 
     void delete(int id);
 
-    User update(User user);
+    void update(User user);
 
     List<User> viewAllUsers();
 

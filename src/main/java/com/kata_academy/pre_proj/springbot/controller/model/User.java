@@ -7,15 +7,17 @@ import jakarta.persistence.*;
 @Table(name = "users")
 public class User {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "age", nullable = false)
     private int age;
 
@@ -58,15 +60,5 @@ public class User {
     }
 
     public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", surname='" + surname + '\'' +
-               ", age=" + age +
-               '}';
     }
 }

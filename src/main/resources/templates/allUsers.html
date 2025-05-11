@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Список пользователей</title>
+    <style>
+        .action-form {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .btn {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,25 +30,28 @@
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td> <!-- Правильное обращение к id -->
-        <td th:text="${user.name}"></td> <!-- Правильное обращение к name -->
-        <td th:text="${user.surname}"></td> <!-- Правильное обращение к surname -->
-        <td th:text="${user.age}"></td> <!-- Правильное обращение к age -->
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.age}"></td>
         <td>
-            <a th:href="@{/users/{id}/edit(id=${user.id})}"
-               class="btn btn-sm btn-primary me-2">Изменить пользователя</a>
-            <form th:action="@{/users/{id}/delete(id=${user.id})}"
-            method="post"
-            class="d-inline">
-            <button type="submit">
-                Удалить пользователя
-            </button>
+            <!-- Форма для редактирования -->
+            <form th:action="@{/users/edit}" method="get" class="action-form">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit" class="btn">Изменить</button>
+            </form>
+
+            <!-- Форма для удаления -->
+            <form th:action="@{/users/delete}" method="post" class="action-form">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit" class="btn">Удалить</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-<a th:href="@{/users/new}">Добавить пользователя</a> |
-</td>
+
+<a th:href="@{/users/new}">Добавить пользователя</a>
+
 </body>
 </html>
